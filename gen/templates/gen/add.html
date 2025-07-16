@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}new flavor{% endblock %}
+{% block content %}
+    <form method="post" action="{% url 'add' %}">
+        <fieldset>
+            <legend>Add a new flavor</legend>
+            {% if errors %}<p class="error">{{ errors|join:' - ' }}</p>{% endif %}
+            <label>
+                Name
+                <input type="text" name="name" required="required" />
+            </label>
+            <label>
+                Algo
+                <select name="algo" required="required">
+                    <option></option>
+                    {% for algo in algos %}
+                    <option value="{{ algo }}">{{ algo }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label>
+                Salt
+                <input type="text" name="salt" />
+            </label>
+            <label>
+                Max length
+                <input type="number" name="maxlen" min="1" max="12" step="1" required="required" />
+            </label>
+            {% csrf_token %}
+            <input type="submit" value="Add this new flavor" />
+        </fieldset>
+    </form>
+    <table>
+        <caption>Existing flavors</caption>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Algo</th>
+                <th>Salt</th>
+                <th>Max length</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Algo</th>
+                <th>Salt</th>
+                <th>Max length</th>
+            </tr>
+        </tfoot>
+        <tbody>
+            {% if flavors %}
+                {% for flavor in flavors %}
+                    <tr>
+                        <th>{{ flavor.name }}</th>
+                        <td>{{ flavor.algo }}</td>
+                        <td>{{ flavor.salt }}</td>
+                        <td>{{ flavor.maxlen }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+            <tr><td>No flavor yet</td></tr>
+            {% endif %}
+        </tbody>
+    </table>
+{% endblock %}

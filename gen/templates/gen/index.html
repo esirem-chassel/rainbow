@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}{{ cnt }} records{% endblock %}
+{% block content %}
+    <form method="post" action="{% url 'index' %}">
+        <fieldset>
+            <legend>Rechercher une source</legend>
+            <label>
+                Hash
+                <input type="search" name="hash" value="{{ search }}" />
+            </label>
+            {% csrf_token %}
+            <input type="submit" value="search" />
+        </fieldset>
+    </form>
+    <table>
+        <caption>Search results : {{ results|length }} result(s)</caption>
+        <thead>
+            <tr>
+                <th>Flavor</th>
+                <th>Source</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Flavor</th>
+                <th>Source</th>
+                <th>Result</th>
+            </tr>
+        </tfoot>
+        <tbody>
+            {% if results %}
+                {% for result in results %}
+                    <tr>
+                        <td>{{ result.flavor }}</td>
+                        <td>{{ result.src }}</td>
+                        <td>{{ result.res }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+            <tr><td colspan="3">No results</td></tr>
+            {% endif %}
+        </tbody>
+    </table>
+{% endblock %}

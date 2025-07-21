@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,7 +31,8 @@ SECRET_KEY = 'django-insecure-*n-tt(-hc5n-t13%!pqr%gjq+ud*ymge$mw=w_r2r84o0m3r86
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+if os.getenv('host'):
+    ALLOWED_HOSTS.append(os.getenv('host'))
 
 # Application definition
 
@@ -76,7 +82,7 @@ WSGI_APPLICATION = 'rbw.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / (os.getenv('dbname') or 'db.sqlite3'),
     }
 }
 

@@ -8,7 +8,10 @@ Il repose sur une stack Django + SQLite.
 
 ## Installation
 
+> [!Note]
+> Vous devriez envisager d'installer l'outil via un environnement virtuel.
 
+Une fois le dépôt cloné, lancez un `pip install -r requirements.txt` pour lancer l'installation des prérequis nécessaires.
 
 ## Configuration
 
